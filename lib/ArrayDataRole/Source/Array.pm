@@ -20,30 +20,29 @@ sub new {
 
     bless {
         array => $ary,
-        index => 0,
+        pos => 0,
     }, $class;
 }
 
-sub elem {
+sub get_next_item {
     my $self = shift;
-    die "Out of range" unless $self->{index} < @{ $self->{array} };
-    $self->{array}->[ $self->{index}++ ];
+    die "StopIteration" unless $self->{pos} < @{ $self->{array} };
+    $self->{array}->[ $self->{pos}++ ];
 }
 
-sub get_elem {
+sub has_next_item {
     my $self = shift;
-    return undef unless $self->{index} < @{ $self->{array} };
-    $self->{array}->[ $self->{index}++ ];
+    $self->{pos} < @{ $self->{array} };
 }
 
 sub reset_iterator {
     my $self = shift;
-    $self->{index} = 0;
+    $self->{pos} = 0;
 }
 
-sub get_iterator_index {
+sub get_iterator_pos {
     my $self = shift;
-    $self->{index};
+    $self->{pos};
 }
 
 1;

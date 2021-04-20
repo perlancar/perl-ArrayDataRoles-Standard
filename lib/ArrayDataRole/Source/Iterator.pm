@@ -23,37 +23,46 @@ sub _new {
         gen_iterator => $gen_iterator,
         gen_iterator_params => $gen_iterator_params,
         iterator => undef,
-        index => 0,
+        pos => 0,
+        # buf => '', # exists when there is a buffer
     }, $class;
 }
 
-sub elem {
+sub get_next_item {
     my $self = shift;
     $self->reset_iterator unless $self->{iterator};
-    my $elem = $self->{iterator}->();
-    die "Out of range" unless defined $elem;
-    $self->{index}++;
-    $elem;
+    if (exists $self->{buf}) {
+        $self->{pos}++;
+        return delete $self->{buf};
+    } else {
+        my $elem = $self->{iterator}->();
+        die "StopIteration" unless defined $elem;
+        $self->{pos}++;
+        return $elem;
+    }
 }
 
-sub get_elem {
+sub has_next_item {
     my $self = shift;
+    if (exists $self->{buf}) {
+        return 1;
+    }
     $self->reset_iterator unless $self->{iterator};
     my $elem = $self->{iterator}->();
-    return undef unless defined $elem;
-    $self->{index}++;
-    $elem;
+    return 0 unless defined $elem;
+    $self->{buf} = $elem;
+    1;
 }
 
 sub reset_iterator {
     my $self = shift;
     $self->{iterator} = $self->{gen_iterator}->(%{ $self->{gen_iterator_params} });
-    $self->{index} = 0;
+    $self->{pos} = 0;
 }
 
-sub get_iterator_index {
+sub get_iterator_pos {
     my $self = shift;
-    $self->{index};
+    $self->{pos};
 }
 
 1;
@@ -81,8 +90,9 @@ sub get_iterator_index {
 
 =head1 DESCRIPTION
 
-This role retrieves elements from an iterator. Iterator must return a non-undef
-element, or undef to signal that all elements have been iterated.
+This role retrieves elements from a simplistic iterator (a coderef). When
+called, the iterator must return a non-undef element or undef to signal that all
+elements have been iterated.
 
 C<reset_iterator()> will regenerate a new iterator.
 
