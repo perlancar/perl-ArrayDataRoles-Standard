@@ -1,4 +1,4 @@
-package ArrayData::Test::Source::LinesDATA;
+package ArrayData::Test::Source::LinesInDATA;
 
 # AUTHORITY
 # DATE
@@ -7,7 +7,7 @@ package ArrayData::Test::Source::LinesDATA;
 
 use Role::Tiny::With;
 
-with 'ArrayDataRole::Source::LinesDATA';
+with 'ArrayDataRole::Source::LinesInDATA';
 
 1;
 # ABSTRACT: A test ArrayData module

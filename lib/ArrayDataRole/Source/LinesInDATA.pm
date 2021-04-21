@@ -1,4 +1,4 @@
-package ArrayDataRole::Source::LinesDATA;
+package ArrayDataRole::Source::LinesInDATA;
 
 # AUTHORITY
 # DATE

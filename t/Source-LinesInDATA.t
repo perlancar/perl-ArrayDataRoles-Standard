@@ -5,9 +5,9 @@ use warnings;
 use Test::Exception;
 use Test::More 0.98;
 
-use ArrayData::Test::Source::LinesDATA;
+use ArrayData::Test::Source::LinesInDATA;
 
-my $t = ArrayData::Test::Source::LinesDATA->new;
+my $t = ArrayData::Test::Source::LinesInDATA->new;
 
 $t->reset_iterator;
 is_deeply($t->get_next_item, 1);
