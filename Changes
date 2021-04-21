@@ -1,3 +1,8 @@
+0.003   2021-04-21  Released-By: PERLANCAR; Urgency: medium
+
+	- Rename ArrayDataRoles::Source::Lines{,In}DATA.
+
+
 0.002   2021-04-20  Released-By: PERLANCAR; Urgency: medium
 
 	- Adjust to ArrayData 0.2.0.
