@@ -118,6 +118,26 @@ sub get_iterator_pos {
     $self->{pos};
 }
 
+sub get_item_at_pos {
+    my ($self, $pos) = @_;
+    $self->reset_iterator if $self->{pos} > $pos;
+    while (1) {
+        die "Out of range" unless $self->has_next_item;
+        my $item = $self->get_next_item;
+        return $item if $self->{pos} > $pos;
+    }
+}
+
+sub has_item_at_pos {
+    my ($self, $pos) = @_;
+    return 1 if $self->{pos} > $pos;
+    while (1) {
+        return 0 unless $self->has_next_item;
+        $self->get_next_item;
+        return 1 if $self->{pos} > $pos;
+    }
+}
+
 1;
 # ABSTRACT: Role to access elements from DBI
 
@@ -126,6 +146,10 @@ sub get_iterator_pos {
 =head1 DESCRIPTION
 
 This role expects array data in L<DBI> database table or query.
+
+Note: C<get_item_at_pos()> and C<has_item_at_pos()> are slow (O(n) in worst
+case) because they iterate. Caching might be added in the future to speed this
+up.
 
 
 =head1 METHODS

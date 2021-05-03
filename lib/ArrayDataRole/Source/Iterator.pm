@@ -65,6 +65,26 @@ sub get_iterator_pos {
     $self->{pos};
 }
 
+sub get_item_at_pos {
+    my ($self, $pos) = @_;
+    $self->reset_iterator if $self->{pos} > $pos;
+    while (1) {
+        die "Out of range" unless $self->has_next_item;
+        my $item = $self->get_next_item;
+        return $item if $self->{pos} > $pos;
+    }
+}
+
+sub has_item_at_pos {
+    my ($self, $pos) = @_;
+    return 1 if $self->{pos} > $pos;
+    while (1) {
+        return 0 unless $self->has_next_item;
+        $self->get_next_item;
+        return 1 if $self->{pos} > $pos;
+    }
+}
+
 1;
 # ABSTRACT: Get array data from an iterator
 

@@ -45,6 +45,30 @@ sub get_iterator_pos {
     $self->{pos};
 }
 
+sub get_item_count {
+    my $self = shift;
+    scalar @{ $self->{array} };
+}
+
+sub get_item_at_pos {
+    my ($self, $pos) = @_;
+    if ($pos < 0) {
+        die "Out of range" unless -$pos <= @{ $self->{array} };
+    } else {
+        die "Out of range" unless $pos < @{ $self->{array} };
+    }
+    $self->{array}->[ $pos ];
+}
+
+sub has_item_at_pos {
+    my ($self, $pos) = @_;
+    if ($pos < 0) {
+        return -$pos <= @{ $self->{array} } ? 1:0;
+    } else {
+        return $pos < @{ $self->{array} } ? 1:0;
+    }
+}
+
 1;
 # ABSTRACT: Get array data from a Perl array
 
