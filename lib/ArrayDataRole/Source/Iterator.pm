@@ -116,6 +116,10 @@ elements have been iterated.
 
 C<reset_iterator()> will regenerate a new iterator.
 
+Note: C<get_item_at_pos()> and C<has_item_at_pos()> are slow (O(n) in worst
+case) because they iterate. Caching might be added in the future to speed this
+up.
+
 
 =head1 METHODS
 
