@@ -68,6 +68,18 @@ sub has_item_at_pos {
     }
 }
 
+sub fh {
+    my $self = shift;
+    $self->{fh};
+}
+
+sub fh_min_offset {
+    my $self = shift;
+    $self->{fhpos_data_begin};
+}
+
+sub fh_max_offset { undef }
+
 1;
 # ABSTRACT: Role to access array data from DATA section, one line per element
 
@@ -85,6 +97,21 @@ up.
 =head1 ROLES MIXED IN
 
 L<ArrayDataRole::Spec::Basic>
+
+
+=head1 PROVIDED METHODS
+
+=head2 fh
+
+Returns the DATA filehandle.
+
+=head2 fh_min_offset
+
+Returns the starting position of DATA.
+
+=head2 fh_max_offset
+
+Returns C<undef>.
 
 
 =head1 SEE ALSO
