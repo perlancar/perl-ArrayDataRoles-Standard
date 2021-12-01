@@ -1,11 +1,14 @@
 package ArrayData::Test::Source::Array;
 
+use strict;
+
+use alias::module 'ArrayData::Array';
+
 # AUTHORITY
 # DATE
 # DIST
 # VERSION
 
-use alias::module 'ArrayData::Array';
 
 1;
 # ABSTRACT: Alias package for ArrayData::Array

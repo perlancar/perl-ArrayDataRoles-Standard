@@ -1,14 +1,15 @@
 package ArrayDataRole::Source::DBI;
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
+use strict;
 use 5.010001;
 use Role::Tiny;
 use Role::Tiny::With;
 with 'ArrayDataRole::Spec::Basic';
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 sub new {
     my ($class, %args) = @_;

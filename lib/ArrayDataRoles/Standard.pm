@@ -1,5 +1,7 @@
 package ArrayDataRoles::Standard;
 
+use strict;
+
 # AUTHORITY
 # DATE
 # DIST

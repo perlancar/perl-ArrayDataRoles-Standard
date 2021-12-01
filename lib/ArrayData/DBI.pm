@@ -1,15 +1,15 @@
 package ArrayData::DBI;
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
 use strict;
 use warnings;
 
 use Role::Tiny::With;
 with 'ArrayDataRole::Source::DBI';
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 1;
 # ABSTRACT: Get array data from DBI

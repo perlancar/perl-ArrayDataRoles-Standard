@@ -1,13 +1,14 @@
 package ArrayData::Test::Source::LinesInDATA;
 
+use strict;
+use Role::Tiny::With;
+
+with 'ArrayDataRole::Source::LinesInDATA';
+
 # AUTHORITY
 # DATE
 # DIST
 # VERSION
-
-use Role::Tiny::With;
-
-with 'ArrayDataRole::Source::LinesInDATA';
 
 1;
 # ABSTRACT: A test ArrayData module

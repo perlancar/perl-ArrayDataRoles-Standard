@@ -1,16 +1,17 @@
 package ArrayDataRole::Source::LinesInDATA;
 
+use strict;
+use Role::Tiny;
+use Role::Tiny::With;
+with 'ArrayDataRole::Spec::Basic';
+
 # AUTHORITY
 # DATE
 # DIST
 # VERSION
 
-use Role::Tiny;
-use Role::Tiny::With;
-with 'ArrayDataRole::Spec::Basic';
-
 sub new {
-    no strict 'refs';
+    no strict 'refs'; ## no critic: TestingAndDebugging::RequireUseStrict
 
     my $class = shift;
 

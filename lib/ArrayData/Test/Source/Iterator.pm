@@ -1,15 +1,16 @@
 package ArrayData::Test::Source::Iterator;
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
+use strict;
 use 5.010001;
 use strict;
 use warnings;
 use Role::Tiny::With;
 with 'ArrayDataRole::Source::Iterator';
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 sub new {
     my ($class, %args) = @_;
@@ -21,7 +22,7 @@ sub new {
             my $i = 0;
             sub {
                 $i++;
-                return undef if $i > $args{num_elems};
+                return undef if $i > $args{num_elems}; ## no critic: Subroutines::ProhibitExplicitReturnUndef
                 return $args{random} ? int(rand()*$args{num_elems} + 1) : $i;
             };
         },
