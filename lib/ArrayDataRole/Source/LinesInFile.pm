@@ -1,4 +1,4 @@
-package ArrayDataRole::Source::LinesInDATA;
+package ArrayDataRole::Source::LinesInFile;
 
 use strict;
 use Role::Tiny;
@@ -11,16 +11,17 @@ with 'ArrayDataRole::Spec::Basic';
 # VERSION
 
 sub new {
-    no strict 'refs'; ## no critic: TestingAndDebugging::RequireUseStrict
+    my ($class, %args) = @_;
 
-    my $class = shift;
-
-    my $fh = \*{"$class\::DATA"};
-    my $fhpos_data_begin = tell $fh;
+    my $fh;
+    unless (defined($fh = delete $args{fh})) {
+        my $filename = delete $args{filename};
+        defined $filename or die "Please specify fh or filename";
+        open  $fh, "<", $filename;
+    }
 
     bless {
         fh => $fh,
-        fhpos_data_begin => $fhpos_data_begin,
         pos => 0, # iterator
     }, $class;
 }
@@ -45,7 +46,7 @@ sub get_iterator_pos {
 
 sub reset_iterator {
     my $self = shift;
-    seek $self->{fh}, $self->{fhpos_data_begin}, 0;
+    seek $self->{fh}, 0, 0;
     $self->{pos} = 0;
 }
 
@@ -74,25 +75,41 @@ sub fh {
     $self->{fh};
 }
 
-sub fh_min_offset {
-    my $self = shift;
-    $self->{fhpos_data_begin};
-}
-
-sub fh_max_offset { undef }
-
 1;
-# ABSTRACT: Role to access array data from DATA section, one line per element
+# ABSTRACT: Role to access array data from a file/filehandle, one line per element
 
 =for Pod::Coverage ^(.+)$
 
 =head1 DESCRIPTION
 
-This role expects array data in lines in the DATA section.
+This role expects array data in lines from a file/filehandle.
 
 Note: C<get_item_at_pos()> and C<has_item_at_pos()> are slow (O(n) in worst
 case) because they iterate. Caching might be added in the future to speed this
 up.
+
+
+=head1 METHODS
+
+=head2 new
+
+Usage:
+
+ my $ary = $CLASS->new(%args);
+
+Arguments:
+
+=over
+
+=item * filename
+
+Str. Either specify this or C<fh>.
+
+=item * fh
+
+Filehandle. Either specify this or C<filename>.
+
+=back
 
 
 =head1 ROLES MIXED IN
@@ -104,7 +121,7 @@ L<ArrayDataRole::Spec::Basic>
 
 =head2 fh
 
-Returns the DATA filehandle.
+Returns the filehandle.
 
 =head2 fh_min_offset
 
@@ -117,7 +134,7 @@ Returns C<undef>.
 
 =head1 SEE ALSO
 
-L<ArrayDataRole::Source::LinesInFile>
+L<ArrayDataRole::Source::LinesInDATA>
 
 Other C<ArrayDataRole::Source::*>
 
