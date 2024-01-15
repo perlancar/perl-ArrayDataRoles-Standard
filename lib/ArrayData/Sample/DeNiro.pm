@@ -16,6 +16,14 @@ with 'ArrayDataRole::Source::LinesInDATA';
 1;
 # ABSTRACT: List of Robert De Niro's movies, in chronological order
 
+=head1 SEE ALSO
+
+L<HashData::Sample::DeNiro>
+
+L<TableData::Sample::DeNiro>
+
+=cut
+
 __DATA__
 Greetings
 Bloody Mama
